@@ -1,0 +1,6 @@
+Task 4. Starvation
+
+For starvation problem, it means that there is a possibility for one process to be scheduled infinitely.
+To solve this problem, I import the class of ReetrantLock. Since ReentrantLock has newCondition
+to allow user to get wait/notify semantics with a fair lock.
+This condition is fair, notify wakes threads in FIFO order.

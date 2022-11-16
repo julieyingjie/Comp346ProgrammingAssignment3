@@ -1,9 +1,15 @@
+package org.example;
+
+import java.util.Scanner;
 /**
  * Class DiningPhilosophers
  * The main starter.
  *
  * @author Serguei A. Mokhov, mokhov@cs.concordia.ca
  */
+
+import java.util.Scanner;
+
 public class DiningPhilosophers
 {
     /*
@@ -37,7 +43,8 @@ public class DiningPhilosophers
     /**
      * Main system starts up right here
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         try
         {
             /*
@@ -46,12 +53,39 @@ public class DiningPhilosophers
              * or the default if no arguments supplied.
              */
             int iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
+            Scanner keyIn = new Scanner(System.in);
+            System.out.println("Please enter a positive number of Philosophers: ");
+            String string = "";
+            int inputNum=0;
+            while(true) {
+                string = keyIn.nextLine();
+                if (string ==" ") {
+                    iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
+                    break;
+                } else {
+                    try {
+                        inputNum = Integer.parseInt(string);
+                    } catch (NumberFormatException e) {
+                        System.out.println("% java DiningPhilosopher " + string + "\n\"" + string + "\" is not a positive decimal integer" +
+                                "\n\nUsage: java DiningPhilosophers[NUMBER_OF_PHILOSOPHERS]\nPlease enter again:");
+                        continue;
+                    }
+                    if (inputNum < 0) {
+                        System.out.println("% java DiningPhilosopher " + inputNum + "\n\"" + inputNum + "\" is not a positive decimal integer" +
+                                "\n\nUsage: java DiningPhilosophers[NUMBER_OF_PHILOSOPHERS]\nPlease enter again");
+                    } else {
+                        iPhilosophers = inputNum;
+                        break;
+                    }
+                }
+
+            }
 
             // Make the monitor aware of how many philosophers there are
             soMonitor = new Monitor(iPhilosophers);
 
             // Space for all the philosophers
-            Philosopher aoPhilosophers[] = new Philosopher[iPhilosophers];
+            Philosopher[] aoPhilosophers = new Philosopher[iPhilosophers];
 
             // Let 'em sit down
             for(int j = 0; j < iPhilosophers; j++)
@@ -60,11 +94,7 @@ public class DiningPhilosophers
                 aoPhilosophers[j].start();
             }
 
-            System.out.println
-                    (
-                            iPhilosophers +
-                                    " philosopher(s) came in for a dinner."
-                    );
+            System.out.println(iPhilosophers + " philosopher(s) came in for a dinner.");
 
             // Main waits for all its children to die...
             // I mean, philosophers to finish their dinner.
@@ -92,7 +122,7 @@ public class DiningPhilosophers
         System.err.println("Stack Trace      : ");
         poException.printStackTrace(System.err);
     }
+
 }
 
 // EOF
-
